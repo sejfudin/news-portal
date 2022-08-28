@@ -1,11 +1,12 @@
-import { CLEAR_NEWS, FETCH_NEWS, SET_PAGE, SET_TERM } from "../actions/types";
+import { CLEAR_NEWS, FETCH_NEWS, PREVENT_MULTICLICK, SET_PAGE, SET_TERM } from "../actions/types";
 
 const initialState = {
     news: [],
     totalResults: null,
     term: "",
     page: 1,
-    loading: false
+    loading: false, 
+    isClickable: true
 };
 
 export const newsReducer = (state = initialState, action) => {
@@ -16,8 +17,14 @@ export const newsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 news: state.page === 1 ? action.payload.articles : [...state.news, ...action.payload.articles],
-                totalResults: action.payload.totalResults
+                totalResults: action.payload.totalResults,
+                isClickable: true
             };
+            case PREVENT_MULTICLICK:
+            return {
+                ...state,
+                isClickable: false
+            }
         case CLEAR_NEWS:
             return {
                 news: action.payload,

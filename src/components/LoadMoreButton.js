@@ -14,7 +14,7 @@ const LoadMoreButton = () => {
     }
 
     useEffect(() => {
-        if (news.length === totalResults) {
+        if (news?.length === totalResults) {
             setIsDisabled(true);
         }
         else {

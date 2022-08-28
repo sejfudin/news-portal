@@ -3,22 +3,27 @@ import SingleItem from './SingleItem';
 import SortDropdown from './SortDropdown';
 import Spiner from './Spiner';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchNews } from '../redux/actions/newsActions';
+import { fetchNews, preventMulticlick } from '../redux/actions/newsActions';
 import { Box, Grid } from '@material-ui/core';
 
 const LandingPage = () => {
     const [sortByValue, setSortByValue] = useState('');
-    const dispatch = useDispatch()
-    const { news, term, page } = useSelector(state => state.news)
+    const dispatch = useDispatch();
+    const { news, term, page, isClickable } = useSelector(state => state.news);
 
-    useEffect(() => {
-        dispatch(fetchNews(page, term, sortByValue));
-    }, [dispatch, page, term, sortByValue])
+    const handleClick = () => {
+        dispatch(fetchNews(page, 'usa', sortByValue));
+        dispatch(preventMulticlick());
+    }
 
+    // useEffect(() => {
+    //     dispatch(fetchNews(page, term, sortByValue));
+    // }, [dispatch, page, term, sortByValue])
     return (
         <>
+            <button disabled={!isClickable} onClick={handleClick}>GET NEWS</button>
             {term && <SortDropdown setSortByValue={setSortByValue} />}
-            {news.length === 0 ?
+            {news?.length === 0 ?
                 <Spiner />
                 :
                 <Box

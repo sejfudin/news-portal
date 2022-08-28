@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import { useHistory } from 'react-router-dom';
 import { getImage } from '../utils/helpers';
+import { autocompleteClasses } from '@mui/material';
 
 const useStyles = makeStyles(() => ({
 
@@ -20,9 +21,13 @@ const useStyles = makeStyles(() => ({
         height: 200,
     },
     title: {
+        width: 250,
         fontSize: 16,
         fontWeight: 'bold',
         marginTop: 2,
+        marginBottom: 7,
+        marginLeft: 'auto',
+        marginRight: 'auto',
         overflow: 'hidden',
         whiteSpace: 'nowrap',
         textOverflow: "ellipsis"
@@ -45,12 +50,10 @@ const SingleItem = ({ data, id }) => {
         <Card className={classes.card}>
             <CardContent>
                 <Typography className={classes.title}>{data.title}</Typography>
-                <Typography className={classes.description}>{data.description}</Typography>
+                {/* <Typography className={classes.description}>{data.description}</Typography> */}
                 <CardMedia><img src={getImage(data)} className={classes.img} alt="img" /></CardMedia>
             </CardContent>
-            <Button
-                variant='outlined'
-                onClick={() => history.push(`/articles/${id}`)}
+            <Button variant='outlined' onClick={() => history.push(`/articles/${id}`)}
             >
                 READ FULL ARTICLE
             </Button>

@@ -1,13 +1,14 @@
 import axios from "axios";
 import { BASE_URL } from "../../utils/constants";
-import { CLEAR_NEWS, FETCH_NEWS, SET_PAGE, SET_TERM } from "./types";
+import { CLEAR_NEWS, FETCH_NEWS, PREVENT_MULTICLICK, SET_PAGE, SET_TERM } from "./types";
 
 const key = process.env.REACT_APP_API;
 
 export const fetchNews = (page, term, sortByValue) => async dispatch => {
     try {
-        const { data } = await axios.get(`${BASE_URL}${term ? `everything?q=${term}&sortBy=${sortByValue}` : `top-headlines?country=us`}&page=${page}&apiKey=${key}`);
-
+        const { data } = await axios.get(`${BASE_URL}${term ? `everything?q=${term}&sortBy=${sortByValue}` : `top-headlines?country=us`}&page=${page}&pageSize=100&apiKey=${key}`);
+console.log(data)
+console.log(page)
         dispatch(
             {
                 type: FETCH_NEWS,
@@ -17,6 +18,11 @@ export const fetchNews = (page, term, sortByValue) => async dispatch => {
     } catch (error) {
         console.log(error.message);
     }
+}
+export const preventMulticlick =()=>{
+    return({
+        type: PREVENT_MULTICLICK
+    })
 }
 
 

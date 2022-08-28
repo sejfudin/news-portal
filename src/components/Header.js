@@ -9,7 +9,6 @@ const Header = () => {
         <Box sx={{ flexGrow: 1, paddingTop: 5 }}>
             <AppBar position="static" style={{ borderRadius: 3 }}>
                 <Toolbar>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}> News </Typography>
                     <Typography variant='h5' style={{ flexGrow: 1, textAlign: "center" }}> News Portal </Typography>
                 </Toolbar>
             </AppBar>
